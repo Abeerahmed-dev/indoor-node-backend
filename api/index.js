@@ -1,34 +1,23 @@
 import express from "express";
 import cors from "cors";
-import userRoutes from "../routes/userRoutes.js";
 
 const app = express();
 
 app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: "*"
 }));
-
-app.options("*", cors());
 
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "Backend working"
+    message: "Backend running on Render"
   });
 });
 
-app.get("/api/test", (req, res) => {
-  res.json({
-    success: true,
-    message: "API route working"
-  });
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
 });
-
-// IMPORTANT
-app.use("/api/users", userRoutes);
-
-export default app;
